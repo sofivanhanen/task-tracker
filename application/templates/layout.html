@@ -1,14 +1,19 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
   <html>
     <head>
       <meta charset="utf-8">
-      <title>Demo</title>
+      <title>TodoApplication</title>
     </head>
-
+    
     <body>
+      <ul>
+	<li><a href="{{ url_for('tasks_index') }}">List tasks</a></li>
+	<li><a href="{{ url_for('tasks_form') }}">Add a task</a></li>
+      </ul>
+      
       {% block body %}
       <p>
-	Tähän tuodaan sisältö muualta.
+	Content.
       </p>
       {% endblock %}
     </body>
