@@ -5,7 +5,8 @@ Web-based database app.
 User can log in to her account and add tasks that she needs to finish. After working on a task, she can log a new working period.
 App displays trends in working times, efficiency, how long it takes to complete vs. how long it was estimated to take, etc.
 
-Features:
+### Features
+
 - User has login credentials
 - User can add tasks
   - Tasks can belong to 'classes' specified by the user
@@ -19,3 +20,11 @@ Features:
 - User can view cool data and become more efficient at finishing tasks!
 
 I plan on using the experience gained on this project to improve my existing Android app, Knit Timer!
+
+### Links
+
+[App live on Heroku](https://calm-plateau-92780.herokuapp.com/)
+
+[User stories](https://github.com/sofivanhanen/task-tracker/blob/master/documentation/User%20stories.pdf)
+
+[Initial database diagram](https://github.com/sofivanhanen/task-tracker/blob/master/documentation/Database%20diagram.pdf)
