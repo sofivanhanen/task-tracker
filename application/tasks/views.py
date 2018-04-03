@@ -2,7 +2,7 @@ from application import app, db
 from flask import redirect, render_template, request, url_for
 from flask_login import login_required, current_user
 from application.tasks.models import Task
-from application.tasks.forms import TaskForm
+from application.tasks.forms import TaskForm, EditForm
 
 
 @app.route("/tasks", methods=["GET"])
@@ -50,9 +50,25 @@ def tasks_delete_task(task_id):
 @app.route("/tasks/<task_id>/edit/", methods=["GET", "POST"])
 @login_required
 def tasks_edit_task(task_id):
+
     t = Task.query.get(task_id)
+    form = EditForm(request.form)
+
     if request.method == "GET":
-        return render_template("tasks/edit.html", task = t)
+        form.name.default = t.name
+        form.done.default = t.done
+        form.process()
+        return render_template("tasks/edit.html", form=form, task=t)
+
+    if not form.validate():
+        return render_template("tasks/edit.html", form=form, task=t)
+
+    t.name = form.name.data
+    t.done = form.done.data
+
+    db.session().commit()
+
+    return redirect(url_for("tasks_details", task_id=task_id))
 
 
 @app.route("/tasks/", methods=["POST"])

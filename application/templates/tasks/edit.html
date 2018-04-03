@@ -2,7 +2,42 @@
 <h3>
   Editing task "{{task.name}}"
 </h3>
-<p>
-  Form here
-</p>
+<form method="POST" action="{{ url_for('tasks_edit_task', task_id = task.id) }}">
+  <table>
+    <tr>
+      <td>
+        {{ form.name.label }}
+      </td>
+      <td>
+        {{ form.name }}
+      </td>
+      <td>
+        <ul>
+          {%for error in form.name.errors %}
+          <li>{{ error}}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.done.label }}
+      </td>
+      <td>
+        {{ form.done }}
+      </td>
+      <td>
+        <ul>
+          {%for error in form.done.errors %}
+          <li>{{ error}}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <input type="submit" value="Edit task" />
+      </td>
+    </tr>
+</form>
 <a href="{{url_for('tasks_details', task_id = task.id)}}">Cancel</a> {% endblock %}
