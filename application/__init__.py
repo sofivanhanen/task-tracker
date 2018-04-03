@@ -11,6 +11,7 @@ from application import views
 
 from application.tasks import models
 from application.tasks import views
-  
-db.create_all()
 
+from application.auth import models
+
+db.create_all()
