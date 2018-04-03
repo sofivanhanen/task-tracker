@@ -14,8 +14,8 @@ esineet.append(Item("Eka"));
 esineet.append(Item("Toka"));
 esineet.append(Item("Kolmas"));
 esineet.append(Item("Neljäs"));
-  
-@app.route("/")
+
+@app.route("/", endpoint='index')
 def hello():
     return render_template("index.html")
 
