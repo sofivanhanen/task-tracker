@@ -11,7 +11,8 @@ def auth_login():
         return render_template("auth/loginform.html", form = LoginForm())
 
     form = LoginForm(request.form)
-    # TODO Validation
+    if not form.validate():
+        return render_template("auth/loginform.html", form = form)
 
     user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
     if not user:
@@ -32,7 +33,8 @@ def auth_register():
         return render_template("auth/registerform.html", form = RegisterForm())
 
     form = RegisterForm(request.form)
-    # TODO Validation
+    if not form.validate():
+        return render_template("auth/registerform.html", form = form)
 
     user = User(form.name.data, form.username.data, form.password.data)
     db.session().add(user)
