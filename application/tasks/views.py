@@ -1,12 +1,13 @@
 from application import app, db
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 from application.tasks.models import Task
 from application.tasks.forms import TaskForm
 
 @app.route("/tasks", methods=["GET"])
+@login_required
 def tasks_index():
-    return render_template("tasks/list.html", tasks = Task.query.all())
+    return render_template("tasks/list.html", tasks = Task.query.filter_by(account_id = current_user.id).all())
 
 @app.route("/tasks/new/")
 @login_required
@@ -32,6 +33,7 @@ def tasks_create():
         return render_template("tasks/new.html", form = form)
 
     t = Task(form.name.data)
+    t.account_id = current_user.id
 
     db.session().add(t)
     db.session().commit()
