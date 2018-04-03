@@ -28,6 +28,14 @@ def auth_logout():
 
 @app.route("/auth/register", methods = ["GET", "POST"])
 def auth_register():
+    if (request.method == "GET"):
+        return render_template("auth/registerform.html", form = RegisterForm())
+
+    form = RegisterForm(request.form)
     # TODO Validation
-    # TODO Handling POST
-    return render_template("auth/registerform.html", form = RegisterForm())
+
+    user = User(form.name.data, form.username.data, form.password.data)
+    db.session().add(user)
+    db.session().commit()
+
+    return redirect(url_for("auth_login"))
