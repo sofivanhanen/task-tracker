@@ -35,6 +35,7 @@ def tasks_set_done(task_id):
 
     return redirect(url_for("tasks_index"))
 
+
 @app.route("/tasks/<task_id>/delete/")
 @login_required
 def tasks_delete_task(task_id):
@@ -44,6 +45,14 @@ def tasks_delete_task(task_id):
     db.session.commit()
 
     return redirect(url_for("tasks_index"))
+
+
+@app.route("/tasks/<task_id>/edit/", methods=["GET", "POST"])
+@login_required
+def tasks_edit_task(task_id):
+    t = Task.query.get(task_id)
+    if request.method == "GET":
+        return render_template("tasks/edit.html", task = t)
 
 
 @app.route("/tasks/", methods=["POST"])

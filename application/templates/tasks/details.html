@@ -20,5 +20,5 @@
     </td>
   </tr>
 </table>
-<a href="{{url_for('index')}}">Edit task</a>
+<a href="{{url_for('tasks_edit_task', task_id = task.id)}}">Edit task</a>
 <a href="{{url_for('tasks_delete_task', task_id = task.id)}}">Delete task</a> {% endblock %}
