@@ -3,6 +3,21 @@
   <table>
     <tr>
       <td>
+        {{ form.task.label }}
+      </td>
+      <td>
+        {{ form.task }}
+      </td>
+      <td>
+        <ul>
+          {%for error in form.task.errors %}
+          <li>{{ error}}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
         {{ form.time.label }}
       </td>
       <td>

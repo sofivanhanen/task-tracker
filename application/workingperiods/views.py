@@ -8,4 +8,10 @@ from application.workingperiods.forms import WorkingPeriodForm
 @app.route("/workingperiods/new")
 @login_required
 def working_periods_new():
-    return render_template("workingperiods/new.html", form=WorkingPeriodForm())
+
+    tasks = Task.query.filter_by(account_id=current_user.id).all()
+
+    form = WorkingPeriodForm()
+    form.task.choices = [(task.id, task.name) for task in tasks]
+
+    return render_template("workingperiods/new.html", form=form)
