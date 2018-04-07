@@ -1,0 +1,55 @@
+{% extends "layout.html" %} {% block body %}
+<form method="GET" action="{{ url_for('index') }}">
+  <table>
+    <tr>
+      <td>
+        {{ form.time.label }}
+      </td>
+      <td>
+        {{ form.time }}
+      </td>
+      <td>
+        <ul>
+          {%for error in form.time.errors %}
+          <li>{{ error}}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.length.label }}
+      </td>
+      <td>
+        {{ form.length }}
+      </td>
+      <td>
+        <ul>
+          {%for error in form.length.errors %}
+          <li>{{ error}}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.quality.label }}
+      </td>
+      <td>
+        {{ form.quality }}
+      </td>
+      <td>
+        <ul>
+          {%for error in form.quality.errors %}
+          <li>{{ error}}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <input type="submit" value="Create a new working period" />
+      </td>
+    </tr>
+</form>
+{% endblock %}
