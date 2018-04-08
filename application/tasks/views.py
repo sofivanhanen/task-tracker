@@ -3,6 +3,7 @@ from flask import redirect, render_template, request, url_for
 from flask_login import login_required, current_user
 from application.tasks.models import Task
 from application.tasks.forms import TaskForm, EditForm
+from application.workingperiods.models import WorkingPeriod
 
 
 @app.route("/tasks", methods=["GET"])
@@ -22,7 +23,8 @@ def tasks_form():
 def tasks_details(task_id):
     # TODO user shouldn't be able to navigate to another user's task by manipulating url
     t = Task.query.get(task_id)
-    return render_template("tasks/details.html", task=t)
+    wps = WorkingPeriod.find_working_periods_as_string_for_task(task_id)
+    return render_template("tasks/details.html", task=t, working_periods=wps)
 
 
 @app.route("/tasks/<task_id>/", methods=["POST"])

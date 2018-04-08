@@ -20,5 +20,21 @@
     </td>
   </tr>
 </table>
+
+{% if working_periods is defined %}
+<h4>
+  Work sessions:
+</h4>
+
+<ul>
+  {% for wp in working_periods %}
+  <li>
+    {{wp}}
+  </li>
+  {% endfor %}
+</ul>
+
+{% endif %}
+
 <a href="{{url_for('tasks_edit_task', task_id = task.id)}}">Edit task</a>
 <a href="{{url_for('tasks_delete_task', task_id = task.id)}}">Delete task</a> {% endblock %}
