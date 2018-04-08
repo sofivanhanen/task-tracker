@@ -1,5 +1,6 @@
 from application import db
 from application.models import Base
+from sqlalchemy.sql import text
 
 
 class Task(Base):
@@ -13,3 +14,12 @@ class Task(Base):
     def __init__(self, name):
         self.name = name
         self.done = False
+
+    @staticmethod
+    def get_total_time_spent_on_task(task_id):
+        stmt = text(
+            "SELECT SUM(working_period.length) FROM working_period INNER JOIN task ON task.id = working_period.task_id")
+        res = db.engine.execute(stmt)
+        for row in res:
+            # res contains only one row
+            return row[0]

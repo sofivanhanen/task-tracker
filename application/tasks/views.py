@@ -23,8 +23,9 @@ def tasks_form():
 def tasks_details(task_id):
     # TODO user shouldn't be able to navigate to another user's task by manipulating url
     t = Task.query.get(task_id)
+    time = Task.get_total_time_spent_on_task(task_id)
     wps = WorkingPeriod.find_working_periods_as_string_for_task(task_id)
-    return render_template("tasks/details.html", task=t, working_periods=wps)
+    return render_template("tasks/details.html", task=t, total_time=time, working_periods=wps)
 
 
 @app.route("/tasks/<task_id>/", methods=["POST"])
