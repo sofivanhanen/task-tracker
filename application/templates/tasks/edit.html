@@ -3,41 +3,24 @@
   Editing task "{{task.name}}"
 </h3>
 <form method="POST" action="{{ url_for('tasks_edit_task', task_id = task.id) }}">
-  <table>
-    <tr>
-      <td>
-        {{ form.name.label }}
-      </td>
-      <td>
-        {{ form.name }}
-      </td>
-      <td>
-        <ul>
-          {%for error in form.name.errors %}
-          <li>{{ error}}</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.done.label }}
-      </td>
-      <td>
-        {{ form.done }}
-      </td>
-      <td>
-        <ul>
-          {%for error in form.done.errors %}
-          <li>{{ error}}</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3">
-        <input type="submit" value="Edit task" />
-      </td>
-    </tr>
+  <div class="form-group">
+    <label for="{{ form.name.id }}" class="control-label">{{ form.name.label }}</label>
+    <div>
+      {{ form.name(class='form-control') }}
+    </div>
+    {% if form.name.errors %} {% for e in form.name.errors %}
+    <p class="help-block">{{ e }}</p>
+    {% endfor %} {% endif %}
+  </div>
+  <div class="form-check">
+    <div>
+      {{ form.done(type='checkbox', class='form-check-input') }}
+    </div>
+    <label for="{{ form.done.id }}" class="form-check-label">{{ form.done.label }}</label>
+    {% if form.done.errors %} {% for e in form.done.errors %}
+    <p class="help-block">{{ e }}</p>
+    {% endfor %} {% endif %}
+  </div>
+  <button type="submit" class="btn btn-primary">Edit</button>
 </form>
 <a href="{{url_for('tasks_details', task_id = task.id)}}">Cancel</a> {% endblock %}
