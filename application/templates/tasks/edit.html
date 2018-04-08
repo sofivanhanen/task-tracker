@@ -1,7 +1,7 @@
 {% extends "layout.html" %} {% block body %}
-<h3>
+<h1>
   Editing task "{{task.name}}"
-</h3>
+</h1>
 <form method="POST" action="{{ url_for('tasks_edit_task', task_id = task.id) }}">
   <div class="form-group">
     <label for="{{ form.name.id }}" class="control-label">{{ form.name.label }}</label>

@@ -1,4 +1,7 @@
 {% extends "layout.html" %} {% block body %} {{ error }}
+<h1>
+  Create an account
+</h1>
 <form method="POST" action="{{ url_for('auth_register') }}">
   <div class="form-group">
     <label for="{{ form.username.id }}" class="control-label">{{ form.username.label }}</label>
@@ -27,6 +30,6 @@
     <p class="help-block">{{ e }}</p>
     {% endfor %} {% endif %}
   </div>
-  <button type="submit" class="btn btn-primary">Create an account</button>
+  <button type="submit" class="btn btn-primary">Register</button>
 </form>
 {% endblock %}

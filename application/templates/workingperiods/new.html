@@ -1,4 +1,7 @@
 {% extends "layout.html" %} {% block body %}
+<h1>
+  Creating a new work session
+</h1>
 <form method="POST" action="{{ url_for('working_periods_new') }}">
   <div class="form-group">
     <label for="{{ form.task.id }}" class="control-label">{{ form.task.label }}</label>

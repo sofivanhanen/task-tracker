@@ -1,4 +1,7 @@
 {% extends "layout.html" %} {% block body %}
+<h1>
+  Creating a new task
+</h1>
 <form method="POST" action="{{ url_for('tasks_create') }}">
   <div class="form-group">
     <label for="{{ form.name.id }}" class="control-label">{{ form.name.label }}</label>

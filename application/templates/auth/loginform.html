@@ -1,4 +1,7 @@
 {% extends "layout.html" %} {% block body %} {{ error }}
+<h1>
+  Login
+</h1>
 <form method="POST" action="{{ url_for('auth_login') }}">
   <div class="form-group">
     <label for="{{ form.username.id }}" class="control-label">{{ form.username.label }}</label>
