@@ -9,7 +9,7 @@
       {{ form.task(class='form-control') }}
     </div>
     {% if form.task.errors %} {% for e in form.task.errors %}
-    <p class="help-block">{{ e }}</p>
+    <small class="form-text text-muted">{{ e }}</small>
     {% endfor %} {% endif %}
   </div>
   <div class="form-group">
@@ -18,7 +18,7 @@
       {{ form.time(class='form-control') }}
     </div>
     {% if form.time.errors %} {% for e in form.time.errors %}
-    <p class="help-block">{{ e }}</p>
+    <small class="form-text text-muted">{{ e }}</small>
     {% endfor %} {% endif %}
   </div>
   <div class="form-group">
@@ -27,7 +27,7 @@
       {{ form.length(class='form-control') }}
     </div>
     {% if form.length.errors %} {% for e in form.length.errors %}
-    <p class="help-block">{{ e }}</p>
+    <small class="form-text text-muted">{{ e }</small>
     {% endfor %} {% endif %}
   </div>
   <div class="form-group">
@@ -36,7 +36,7 @@
       {{ form.quality(class='form-control') }}
     </div>
     {% if form.quality.errors %} {% for e in form.quality.errors %}
-    <p class="help-block">{{ e }}</p>
+    <small class="form-text text-muted">{{ e }}</small>
     {% endfor %} {% endif %}
   </div>
   <button type="submit" class="btn btn-primary">Create a work session</button>

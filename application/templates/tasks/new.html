@@ -9,7 +9,7 @@
       {{ form.name(class_='form-control') }}
     </div>
     {% if form.name.errors %} {% for e in form.name.errors %}
-    <p class="help-block">{{ e }}</p>
+    <small class="form-text text-muted">{{ e }}</small>
     {% endfor %} {% endif %}
   </div>
   <button type="submit" class="btn btn-primary">Add a new task</button>

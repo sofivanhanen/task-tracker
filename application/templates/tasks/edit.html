@@ -9,7 +9,7 @@
       {{ form.name(class='form-control') }}
     </div>
     {% if form.name.errors %} {% for e in form.name.errors %}
-    <p class="help-block">{{ e }}</p>
+    <small class="form-text text-muted">{{ e }}</small>
     {% endfor %} {% endif %}
   </div>
   <div class="form-check">
@@ -18,7 +18,7 @@
     </div>
     <label for="{{ form.done.id }}" class="form-check-label">{{ form.done.label }}</label>
     {% if form.done.errors %} {% for e in form.done.errors %}
-    <p class="help-block">{{ e }}</p>
+    <small class="form-text text-muted">{{ e }}</small>
     {% endfor %} {% endif %}
   </div>
   <button type="submit" class="btn btn-primary">Edit</button>
