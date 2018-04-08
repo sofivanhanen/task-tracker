@@ -1,70 +1,41 @@
 {% extends "layout.html" %} {% block body %}
 <form method="POST" action="{{ url_for('working_periods_new') }}">
-  <table>
-    <tr>
-      <td>
-        {{ form.task.label }}
-      </td>
-      <td>
-        {{ form.task }}
-      </td>
-      <td>
-        <ul>
-          {%for error in form.task.errors %}
-          <li>{{ error}}</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.time.label }}
-      </td>
-      <td>
-        {{ form.time }}
-      </td>
-      <td>
-        <ul>
-          {%for error in form.time.errors %}
-          <li>{{ error}}</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.length.label }}
-      </td>
-      <td>
-        {{ form.length }}
-      </td>
-      <td>
-        <ul>
-          {%for error in form.length.errors %}
-          <li>{{ error}}</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        {{ form.quality.label }}
-      </td>
-      <td>
-        {{ form.quality }}
-      </td>
-      <td>
-        <ul>
-          {%for error in form.quality.errors %}
-          <li>{{ error}}</li>
-          {% endfor %}
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3">
-        <input type="submit" value="Create a new working period" />
-      </td>
-    </tr>
+  <div class="form-group">
+    <label for="{{ form.task.id }}" class="control-label">{{ form.task.label }}</label>
+    <div>
+      {{ form.task(class='form-control') }}
+    </div>
+    {% if form.task.errors %} {% for e in form.task.errors %}
+    <p class="help-block">{{ e }}</p>
+    {% endfor %} {% endif %}
+  </div>
+  <div class="form-group">
+    <label for="{{ form.time.id }}" class="control-label">{{ form.time.label }}</label>
+    <div>
+      {{ form.time(class='form-control') }}
+    </div>
+    {% if form.time.errors %} {% for e in form.time.errors %}
+    <p class="help-block">{{ e }}</p>
+    {% endfor %} {% endif %}
+  </div>
+  <div class="form-group">
+    <label for="{{ form.length.id }}" class="control-label">{{ form.length.label }}</label>
+    <div>
+      {{ form.length(class='form-control') }}
+    </div>
+    {% if form.length.errors %} {% for e in form.length.errors %}
+    <p class="help-block">{{ e }}</p>
+    {% endfor %} {% endif %}
+  </div>
+  <div class="form-group">
+    <label for="{{ form.quality.id }}" class="control-label">{{ form.quality.label }}</label>
+    <div>
+      {{ form.quality(class='form-control') }}
+    </div>
+    {% if form.quality.errors %} {% for e in form.quality.errors %}
+    <p class="help-block">{{ e }}</p>
+    {% endfor %} {% endif %}
+  </div>
+  <button type="submit" class="btn btn-primary">Create a work session</button>
 </form>
 {% endblock %}
