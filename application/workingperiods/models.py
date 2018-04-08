@@ -22,11 +22,15 @@ class WorkingPeriod(Base):
         stmt = text("SELECT working_period.time, working_period.length, working_period.quality FROM working_period WHERE working_period.task_id = " + str(task_id))
         res = db.engine.execute(stmt)
 
-        # TODO why is time returned as string? Should be a datetime object.
+        # TODO On heroku time is returned as datetime. On local, using SQLite, it's returned as string...
         response = []
         for row in res:
-            workstring = "On " + row[0] + \
-                ", worked for " + str(row[1]) + " minutes."
+            workstring = "On "
+            if type(row[0]) is str:
+                workstring += row[0]
+            else:
+                workstring += row[0].strftime("%c")
+            workstring += ", worked for " + str(row[1]) + " minutes."
             if row[2] is not None:
                 workstring += (" Quality was " + str(row[2]) + ".")
 
