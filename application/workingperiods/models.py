@@ -19,7 +19,7 @@ class WorkingPeriod(Base):
 
     @staticmethod
     def find_working_periods_as_string_for_task(task_id):
-        stmt = text("SELECT working_period.time, working_period.length, working_period.quality FROM working_period INNER JOIN task ON task.id = working_period.task_id")
+        stmt = text("SELECT working_period.time, working_period.length, working_period.quality FROM working_period WHERE working_period.task_id = " + str(task_id))
         res = db.engine.execute(stmt)
 
         # TODO why is time returned as string? Should be a datetime object.

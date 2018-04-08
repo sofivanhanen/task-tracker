@@ -18,7 +18,7 @@ class Task(Base):
     @staticmethod
     def get_total_time_spent_on_task(task_id):
         stmt = text(
-            "SELECT SUM(working_period.length) FROM working_period INNER JOIN task ON task.id = working_period.task_id")
+            "SELECT SUM(working_period.length) FROM working_period WHERE working_period.task_id = " + str(task_id))
         res = db.engine.execute(stmt)
         for row in res:
             # res contains only one row
