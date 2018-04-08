@@ -44,6 +44,11 @@ def tasks_set_done(task_id):
 def tasks_delete_task(task_id):
 
     t = Task.query.get(task_id)
+    wps = db.session.query(WorkingPeriod).filter(
+        WorkingPeriod.task_id == task_id).all()
+    for wp in wps:
+        wp.task_id = None
+
     db.session.delete(t)
     db.session.commit()
 
