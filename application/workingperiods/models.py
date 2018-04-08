@@ -8,7 +8,7 @@ class WorkingPeriod(Base):
     length = db.Column(db.Integer, nullable=False)
     quality = db.Column(db.Float)
 
-    task_id = db.Column(db.Integer, db.ForeignKey('task.id'), nullable=False)
+    task_id = db.Column(db.Integer, db.ForeignKey('task.id'))
 
     def __init__(self, time, length, quality):
         self.time = time

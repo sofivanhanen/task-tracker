@@ -3,6 +3,7 @@ from flask import redirect, render_template, request, url_for
 from flask_login import login_required, current_user
 from application.tasks.models import Task
 from application.workingperiods.forms import WorkingPeriodForm
+from application.workingperiods.models import WorkingPeriod
 
 
 @app.route("/workingperiods/new", methods=["GET", "POST"])
@@ -18,5 +19,11 @@ def working_periods_new():
 
     if not form.validate():
         return render_template("workingperiods/new.html", form=form)
+
+    wp = WorkingPeriod(form.time.data, form.length.data, form.quality.data)
+    wp.task_id = form.task.data
+
+    db.session().add(wp)
+    db.session().commit()
 
     return redirect(url_for("index"))
