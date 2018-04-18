@@ -1,0 +1,10 @@
+{% extends "layout.html" %} {% block body %}
+<h1>
+  Delete task {{task.name}}?
+</h1>
+<p>
+  This can not be undone.<br>The data concerning working sessions related to this task will stay intact.
+</p>
+<a href="{{url_for('tasks_details', task_id = task.id)}}">No, I changed my mind</a>
+<br>
+<a href="{{url_for('tasks_delete_task', task_id = task.id)}}">Yes, let's kill it</a> {% endblock %}
