@@ -1,6 +1,6 @@
-from application import app, db
+from application import app, db, login_manager, current_user
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required, current_user
+from flask_login import login_required
 from application.tasks.models import Task
 from application.workingperiods.forms import WorkingPeriodForm
 from application.workingperiods.models import WorkingPeriod
@@ -21,6 +21,11 @@ def working_periods_new():
         return render_template("workingperiods/new.html", form=form)
 
     wp = WorkingPeriod(form.time.data, form.length.data, form.quality.data)
+
+    t = Task.query.get(form.task.data)
+    if t.account_id != current_user.id:
+        return login_manager.unauthorized()
+
     wp.task_id = form.task.data
 
     db.session().add(wp)

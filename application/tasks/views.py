@@ -1,6 +1,6 @@
-from application import app, db
+from application import app, db, login_manager, current_user
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required, current_user
+from flask_login import login_required
 from application.tasks.models import Task
 from application.tasks.forms import TaskForm, EditForm
 from application.workingperiods.models import WorkingPeriod
@@ -21,10 +21,14 @@ def tasks_form():
 @app.route("/tasks/<task_id>/", methods=["GET"])
 @login_required
 def tasks_details(task_id):
-    # TODO user shouldn't be able to navigate to another user's task by manipulating url
+
     t = Task.query.get(task_id)
+    if t.account_id != current_user.id:
+        return login_manager.unauthorized()
+
     time = Task.get_total_time_spent_on_task(task_id)
     wps = WorkingPeriod.find_working_periods_as_string_for_task(task_id)
+
     return render_template("tasks/details.html", task=t, total_time=time, working_periods=wps)
 
 
@@ -33,6 +37,9 @@ def tasks_details(task_id):
 def tasks_set_done(task_id):
 
     t = Task.query.get(task_id)
+    if t.account_id != current_user.id:
+        return login_manager.unauthorized()
+
     t.done = True
     db.session().commit()
 
@@ -44,6 +51,9 @@ def tasks_set_done(task_id):
 def tasks_delete_task(task_id):
 
     t = Task.query.get(task_id)
+    if t.account_id != current_user.id:
+        return login_manager.unauthorized()
+
     wps = db.session.query(WorkingPeriod).filter(
         WorkingPeriod.task_id == task_id).all()
     for wp in wps:
@@ -60,6 +70,9 @@ def tasks_delete_task(task_id):
 def tasks_edit_task(task_id):
 
     t = Task.query.get(task_id)
+    if t.account_id != current_user.id:
+        return login_manager.unauthorized()
+
     form = EditForm(request.form)
 
     if request.method == "GET":
