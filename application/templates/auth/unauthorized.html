@@ -1,0 +1,9 @@
+{% extends "layout.html" %} {% block body %}
+<h1>
+  Not authorized
+</h1>
+<p>
+  You are not authorized to view this content.<br>Unfortunately you only have access to content linked to your account.
+</p>
+<a href="{{url_for('index')}}">I understand</a>
+{% endblock %}

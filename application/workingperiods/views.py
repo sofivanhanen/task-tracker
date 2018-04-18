@@ -1,4 +1,4 @@
-from application import app, db, login_manager, current_user
+from application import app, db, current_user
 from flask import redirect, render_template, request, url_for
 from flask_login import login_required
 from application.tasks.models import Task
@@ -24,7 +24,7 @@ def working_periods_new():
 
     t = Task.query.get(form.task.data)
     if t.account_id != current_user.id:
-        return login_manager.unauthorized()
+        return redirect(url_for("auth_unauthorized"))
 
     wp.task_id = form.task.data
 

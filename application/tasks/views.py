@@ -1,4 +1,4 @@
-from application import app, db, login_manager, current_user
+from application import app, db, current_user
 from flask import redirect, render_template, request, url_for
 from flask_login import login_required
 from application.tasks.models import Task
@@ -24,7 +24,7 @@ def tasks_details(task_id):
 
     t = Task.query.get(task_id)
     if t.account_id != current_user.id:
-        return login_manager.unauthorized()
+        return redirect(url_for("auth_unauthorized"))
 
     time = Task.get_total_time_spent_on_task(task_id)
     wps = WorkingPeriod.find_working_periods_as_string_for_task(task_id)
@@ -38,7 +38,7 @@ def tasks_set_done(task_id):
 
     t = Task.query.get(task_id)
     if t.account_id != current_user.id:
-        return login_manager.unauthorized()
+        return redirect(url_for("auth_unauthorized"))
 
     t.done = True
     db.session().commit()
@@ -52,7 +52,7 @@ def tasks_delete_task(task_id):
 
     t = Task.query.get(task_id)
     if t.account_id != current_user.id:
-        return login_manager.unauthorized()
+        return redirect(url_for("auth_unauthorized"))
 
     wps = db.session.query(WorkingPeriod).filter(
         WorkingPeriod.task_id == task_id).all()
@@ -71,7 +71,7 @@ def tasks_edit_task(task_id):
 
     t = Task.query.get(task_id)
     if t.account_id != current_user.id:
-        return login_manager.unauthorized()
+        return redirect(url_for("auth_unauthorized"))
 
     form = EditForm(request.form)
 

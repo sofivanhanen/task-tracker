@@ -41,3 +41,7 @@ def auth_register():
     db.session().commit()
 
     return redirect(url_for("auth_login"))
+
+@app.route("/auth/unauthorized")
+def auth_unauthorized():
+    return render_template("auth/unauthorized.html")
