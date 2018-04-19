@@ -28,6 +28,10 @@ def working_periods_new():
 
     wp.task_id = form.task.data
 
+    # If progress was given
+    if form.progress.data != None:
+        t.progress = form.progress.data
+
     db.session().add(wp)
     db.session().commit()
 

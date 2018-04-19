@@ -9,7 +9,9 @@ class WorkingPeriodForm(FlaskForm):
     length = IntegerField("Length of session in minutes", validators=[
                           validators.InputRequired(), validators.NumberRange(min=0)])
     quality = DecimalField(
-        "Estimated quality of the session. 1.0 is excellent, 0.5 is average", validators=[validators.NumberRange(max=1.0, min=0.0), validators.Optional(True)])
+        "Optional: Estimated quality of the session. 1.0 is excellent, 0.5 is average", validators=[validators.NumberRange(max=1.0, min=0.0), validators.Optional(True)])
+    progress = DecimalField(
+        "Optional: Current progress of selected task. 1 is finished, 0.5 is halfway done", validators=[validators.NumberRange(max=1.0, min=0.0), validators.Optional(True)])
 
     task = SelectField("Task", coerce=int, validators=[
                        validators.InputRequired()])
