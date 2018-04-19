@@ -11,7 +11,7 @@ from application.workingperiods.models import WorkingPeriod
 def working_periods_new():
 
     form = WorkingPeriodForm(request.form)
-    tasks = Task.query.filter_by(account_id=current_user.id).all()
+    tasks = Task.query.filter_by(account_id=current_user.id, done=False).all()
     form.task.choices = [(task.id, task.name) for task in tasks]
 
     if request.method == "GET":

@@ -16,7 +16,7 @@ class EditForm(FlaskForm):
         min=2, max=100), validators.DataRequired()])
     done = BooleanField("Done")
     progress = DecimalField(
-        "Optional: Current progress. 1 is finished, 0.5 is halfway done", validators=[validators.NumberRange(max=1.0, min=0.0), validators.Optional(True)])
+        "Optional: Current progress. 0 is not started, 0.5 is halfway done. Only has an effect if task is not done.", validators=[validators.NumberRange(max=1.0, min=0.0), validators.Optional(True)])
 
     class Meta:
         csrf = False

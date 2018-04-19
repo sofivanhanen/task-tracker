@@ -99,7 +99,10 @@ def tasks_edit_task(task_id):
 
     t.name = form.name.data
     t.done = form.done.data
-    t.progress = form.progress.data
+    if not t.done:
+        t.progress = form.progress.data
+    else:
+        t.progress = 1.0
 
     db.session().commit()
 
