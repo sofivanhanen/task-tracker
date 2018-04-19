@@ -6,7 +6,7 @@ from application.workingperiods.forms import WorkingPeriodForm
 from application.workingperiods.models import WorkingPeriod
 
 
-@app.route("/workingperiods/new", methods=["GET", "POST"])
+@app.route("/workingperiods/new/", methods=["GET", "POST"])
 @login_required
 def working_periods_new():
 
@@ -32,3 +32,30 @@ def working_periods_new():
     db.session().commit()
 
     return redirect(url_for("index"))
+
+@app.route("/workingperiods/<wp_id>/delete/confirm")
+@login_required
+def working_periods_delete_confirm(wp_id):
+
+    wp = WorkingPeriod.query.get(wp_id)
+
+    t = Task.query.get(wp.task_id)
+    if t.account_id != current_user.id:
+        return redirect(url_for("auth_unauthorized"))
+
+    return render_template("workingperiods/delete.html", wp=wp)
+
+@app.route("/workingperiods/<wp_id>/delete/")
+@login_required
+def working_periods_delete(wp_id):
+
+    wp = WorkingPeriod.query.get(wp_id)
+
+    t = Task.query.get(wp.task_id)
+    if t.account_id != current_user.id:
+        return redirect(url_for("auth_unauthorized"))
+
+    db.session.delete(wp)
+    db.session.commit()
+
+    return redirect(url_for("tasks_details", task_id=t.id))

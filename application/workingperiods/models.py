@@ -26,6 +26,7 @@ class WorkingPeriod(Base):
         stmt = text("SELECT working_period.time, working_period.length, working_period.quality, working_period.id FROM working_period WHERE working_period.task_id = " + str(task_id))
         res = db.engine.execute(stmt)
 
+        # TODO Reformat, we don't need to do both manual query AND automatic one
         response = []
         for row in res:
 

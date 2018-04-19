@@ -37,7 +37,7 @@
 <ul>
   {% for wp in working_periods %}
   <li>
-    {{wp.details_string}} 
+    {{wp.details_string}} <a href="{{url_for('working_periods_delete_confirm', wp_id = wp.id)}}">Delete</a>
   </li>
   {% endfor %}
 </ul>
