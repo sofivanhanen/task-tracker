@@ -28,7 +28,7 @@ def tasks_details(task_id):
         return redirect(url_for("auth_unauthorized"))
 
     time = Task.get_total_time_spent_on_task(task_id)
-    wps = WorkingPeriod.find_working_periods_as_string_for_task(task_id)
+    wps = WorkingPeriod.find_working_periods_with_string_for_task(task_id)
 
     return render_template("tasks/details.html", task=t, total_time=time, working_periods=wps)
 
