@@ -7,7 +7,7 @@ from application.workingperiods.models import WorkingPeriod
 from sqlalchemy.sql import collate
 
 
-@app.route("/tasks", methods=["GET"])
+@app.route("/tasks/", methods=["GET"])
 @login_required
 def tasks_index():
     return render_template("tasks/list.html", tasks=Task.query.filter_by(account_id=current_user.id).order_by(Task.done.asc(), collate(Task.name, 'NOCASE')).all())

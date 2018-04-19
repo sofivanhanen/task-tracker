@@ -35,6 +35,8 @@ from application.workingperiods import views
 
 from application.auth.models import User
 
+from application.stats import views
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
