@@ -90,6 +90,7 @@ def tasks_edit_task(task_id):
     if request.method == "GET":
         form.name.default = t.name
         form.done.default = t.done
+        form.progress.default = t.progress
         form.process()
         return render_template("tasks/edit.html", form=form, task=t)
 
@@ -98,6 +99,7 @@ def tasks_edit_task(task_id):
 
     t.name = form.name.data
     t.done = form.done.data
+    t.progress = form.progress.data
 
     db.session().commit()
 

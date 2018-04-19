@@ -21,6 +21,15 @@
     <small class="form-text text-muted">{{ e }}</small>
     {% endfor %} {% endif %}
   </div>
+  <div class="form-group">
+    <label for="{{ form.progress.id }}" class="control-label">{{ form.progress.label }}</label>
+    <div>
+      {{ form.progress(class='form-control') }}
+    </div>
+    {% if form.progress.errors %} {% for e in form.progress.errors %}
+    <small class="form-text text-muted">{{ e }}</small>
+    {% endfor %} {% endif %}
+  </div>
   <button type="submit" class="btn btn-primary">Edit</button>
 </form>
 <a href="{{url_for('tasks_details', task_id = task.id)}}">Cancel</a> {% endblock %}
