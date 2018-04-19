@@ -5,12 +5,13 @@ from application.tasks.models import Task
 from application.tasks.forms import TaskForm, EditForm
 from application.workingperiods.models import WorkingPeriod
 from sqlalchemy.sql import collate
+from sqlalchemy import func
 
 
 @app.route("/tasks/", methods=["GET"])
 @login_required
 def tasks_index():
-    return render_template("tasks/list.html", tasks=Task.query.filter_by(account_id=current_user.id).order_by(Task.done.asc(), collate(Task.name, 'NOCASE')).all())
+    return render_template("tasks/list.html", tasks=Task.query.filter_by(account_id=current_user.id).order_by(Task.done.asc(), func.lower(Task.name)).all())
 
 
 @app.route("/tasks/new/")
