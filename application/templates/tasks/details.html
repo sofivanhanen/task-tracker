@@ -21,6 +21,14 @@
   </tr>
   <tr>
     <td>
+      Estimated time requirement:
+    </td>
+    <td>
+      {{task.estimate}} minutes
+    </td>
+  </tr>
+  <tr>
+    <td>
       Total time spent:
     </td>
     <td>
@@ -28,8 +36,7 @@
     </td>
   </tr>
 </table>
-
-{% if working_periods is defined %}
+<br>
 <h4>
   Work sessions:
 </h4>
@@ -41,8 +48,6 @@
   </li>
   {% endfor %}
 </ul>
-
-{% endif %}
 
 <a href="{{url_for('tasks_edit_task', task_id = task.id)}}">Edit task</a>
 <a href="{{url_for('tasks_confirm_delete', task_id = task.id)}}">Delete task</a> {% endblock %}

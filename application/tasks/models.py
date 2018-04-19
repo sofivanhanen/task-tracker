@@ -7,6 +7,7 @@ class Task(Base):
 
     name = db.Column(db.String(144), nullable=False)
     done = db.Column(db.Boolean, nullable=False)
+    estimate = db.Column(db.Integer)
 
     account_id = db.Column(db.Integer, db.ForeignKey(
         'account.id'), nullable=False)

@@ -114,6 +114,7 @@ def tasks_create():
 
     t = Task(form.name.data)
     t.account_id = current_user.id
+    t.estimate = form.estimate.data
 
     db.session().add(t)
     db.session().commit()
