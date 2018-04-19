@@ -1,7 +1,22 @@
-{% extends "layout.html" %}
-
-{% block body %}
+{% extends "layout.html" %} {% block body %}
 <h1>
-  Stats here
+  Statistics
 </h1>
+<p>
+  Here you can see trends in your work.
+</p>
+<br>
+<h4>
+  Work session trends
+</h4>
+<p>
+  {{day_of_week_string}}
+</p>
+<br>
+<h4>
+  Other stats
+</h4>
+<p>
+  {{total_worked_minutes_string}}
+</p>
 {% endblock %}
