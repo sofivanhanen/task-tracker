@@ -118,4 +118,4 @@ def tasks_create():
     db.session().add(t)
     db.session().commit()
 
-    return redirect(url_for("tasks_index"))
+    return redirect(url_for("tasks_details", task_id=t.id))

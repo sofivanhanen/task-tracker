@@ -31,7 +31,7 @@ def working_periods_new():
     db.session().add(wp)
     db.session().commit()
 
-    return redirect(url_for("index"))
+    return redirect(url_for("tasks_details", task_id=wp.task_id))
 
 @app.route("/workingperiods/<wp_id>/delete/confirm")
 @login_required
