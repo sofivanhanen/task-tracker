@@ -56,6 +56,6 @@ class Stats():
         if day is 6:
             return_string += "Sundays"
 
-        return_string += ", a total of " + minutes[day] + " minutes."
+        return_string += ", a total of " + str(minutes[day]) + " minutes."
 
         return return_string
