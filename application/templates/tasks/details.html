@@ -2,10 +2,21 @@
 <h1>
   {{task.name}}
 </h1>
-<table>
+
+<a href="{{url_for('tasks_edit_task', task_id = task.id)}}">Edit task</a>
+<br>
+<a href="{{url_for('tasks_confirm_delete', task_id = task.id)}}">Delete task</a>
+<br>
+<br>
+
+<h4>
+  Details
+</h4>
+
+<table class="table">
   <tr>
     <td>
-      Is done:
+      Is done
     </td>
     <td>
       {{task.done}}
@@ -13,7 +24,7 @@
   </tr>
   <tr>
     <td>
-      Progress:
+      Progress
     </td>
     <td>
       {{task.progress}} / 1.0
@@ -21,7 +32,7 @@
   </tr>
   <tr>
     <td>
-      Date created:
+      Date created
     </td>
     <td>
       {{task.date_created}}
@@ -29,7 +40,7 @@
   </tr>
   <tr>
     <td>
-      Estimated time requirement:
+      Estimated time requirement
     </td>
     <td>
       {{task.estimate}} minutes
@@ -37,7 +48,7 @@
   </tr>
   <tr>
     <td>
-      Total time spent:
+      Total time spent
     </td>
     <td>
       {{total_time}} minutes
@@ -45,17 +56,18 @@
   </tr>
 </table>
 <br>
+
 <h4>
-  Work sessions:
+  Work sessions
 </h4>
 
-<ul>
+<table class="table">
   {% for wp in working_periods %}
-  <li>
-    {{wp.details_string}} <a href="{{url_for('working_periods_delete_confirm', wp_id = wp.id)}}">Delete</a>
-  </li>
+  <tr>
+    <td>{{wp.details_string}}</td>
+    <td><a href="{{url_for('working_periods_delete_confirm', wp_id = wp.id)}}">Delete</a></td>
+  </tr>
   {% endfor %}
-</ul>
+</table>
 
-<a href="{{url_for('tasks_edit_task', task_id = task.id)}}">Edit task</a>
-<a href="{{url_for('tasks_confirm_delete', task_id = task.id)}}">Delete task</a> {% endblock %}
+{% endblock %}
