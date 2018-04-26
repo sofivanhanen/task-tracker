@@ -1,0 +1,16 @@
+{% extends "layout.html" %} {% block body %}
+<h1>
+  Creating a new class
+</h1>
+<form method="POST" action="{{ url_for('classes_new') }}">
+  <div class="form-group">
+    <label for="{{ form.name.id }}" class="control-label">{{ form.name.label }}</label>
+    <div>
+      {{ form.name(class_='form-control') }}
+    </div>
+    {% if form.name.errors %} {% for e in form.name.errors %}
+    <small class="form-text text-muted">{{ e }}</small> {% endfor %} {% endif %}
+  </div>
+  <button type="submit" class="btn btn-primary">Add a new class</button>
+</form>
+{% endblock %}

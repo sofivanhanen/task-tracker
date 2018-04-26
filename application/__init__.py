@@ -44,6 +44,7 @@ from application.auth.models import User
 from application.stats import views
 
 from application.classes import models
+from application.classes import views
 
 
 @login_manager.user_loader
