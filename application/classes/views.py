@@ -11,6 +11,9 @@ def classes_index():
 
     classes = Class.query.filter_by(account_id=current_user.id).all()
 
+    for c in classes:
+        c.set_count()
+
     return render_template("classes/list.html", classes=classes)
 
 
@@ -42,6 +45,8 @@ def classes_details(class_id):
     c = Class.query.get(class_id)
     if c.account_id != current_user.id:
         return redirect(url_for("auth_unauthorized"))
+
+    c.set_count()
 
     return render_template("classes/details.html", c=c)
 

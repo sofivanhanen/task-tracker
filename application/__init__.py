@@ -15,8 +15,8 @@ db = SQLAlchemy(app)
 # Many-to-many relationship table between tasks and classes
 classtask = db.Table('classtask',
                      db.Column('class_id', db.Integer, db.ForeignKey(
-                         'class.id'), primary_key=True),
-                     db.Column('task_id', db.Integer, db.ForeignKey('task.id', primary_key=True)))
+                         'class.id')),
+                     db.Column('task_id', db.Integer, db.ForeignKey('task.id')))
 
 from os import urandom
 app.config["SECRET_KEY"] = urandom(32)

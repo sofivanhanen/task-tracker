@@ -6,10 +6,14 @@ from sqlalchemy.sql import text
 class Class(Base):
 
     name = db.Column(db.String(144), nullable=False)
-    count = 0
 
     account_id = db.Column(db.Integer, db.ForeignKey(
         'account.id'), nullable=False)
+
+    # For some reason can't set this in init.
+    # So, whenever I need to use the number of tasks in html,
+    # call set_count first.
+    count = -1
 
     # Getting the tasks relevant to this class from classtask table
     # backref creates a similar list of classes for tasks
@@ -18,17 +22,6 @@ class Class(Base):
 
     def __init__(self, name):
         self.name = name
-        try:
-            self.count = get_total_tasks_for_class(self.id)
-        except NameError:
-            self.count = 0
 
-    # THIS DOES NOT WORK
-    @staticmethod
-    def get_total_tasks_for_class(class_id):
-        stmt = text(
-            "SELECT COUNT(task.id) FROM task INNER JOIN classtask ON classtask.task_id = task.id INNER JOIN class ON class.id = classtask.class_id WHERE class.id = " + str(class_id))
-        res = db.engine.execute(res)
-        for row in res:
-            # res contains only one row
-            return row[0]
+    def set_count(self):
+        self.count = len(self.tasks)

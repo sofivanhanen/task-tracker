@@ -2,7 +2,7 @@ from application import app, db, current_user
 from flask import redirect, render_template, request, url_for
 from flask_login import login_required
 from application.tasks.models import Task
-from application.tasks.forms import EditForm, task_form_builder, TaskFormBase
+from application.tasks.forms import EditForm, TaskFormBase
 from application.classes.models import Class
 from application.workingperiods.models import WorkingPeriod
 from sqlalchemy.sql import collate
@@ -32,25 +32,25 @@ def tasks_new():
     for c in classes:
         setattr(TaskForm, str(c.id), BooleanField(c.name))
 
+    # For some reason this doesn't copy errors
     new = TaskForm()
     new.name = form.name
     new.estimate = form.estimate
 
-    if not form.validate():
+    # ...but this works anyhow
+    if not new.validate():
         return render_template("tasks/new.html", form=new)
 
-    t = Task(form.name.data)
+    t = Task(new.name.data)
     t.account_id = current_user.id
-    t.estimate = form.estimate.data
+    t.estimate = (new.estimate.data)
 
-    # THIS DOES NOT WORK
     # Checking which classes were selected
-    for field in form:
+    for field in new:
         try:
-            int(field.name)
-            # Name is an id, so this is a BooleanField
-            if field.data:
-                c = Class.query.get(field.name)
+            # If short_name is int, this does not throw error and it is a booleanfield describing a class with the id short_name
+            c = Class.query.get(int(field.short_name))
+            if (field.data):
                 t.classes.append(c)
         except ValueError:
             pass
