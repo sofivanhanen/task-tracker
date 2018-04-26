@@ -32,7 +32,7 @@ def classes_new():
     db.session().add(c)
     db.session().commit()
 
-    return redirect(url_for("index"))
+    return redirect(url_for("classes_details", class_id=c.id))
 
 
 @app.route("/classes/<class_id>/")
@@ -72,3 +72,27 @@ def classes_delete_class(class_id):
     db.session().commit()
 
     return redirect(url_for("classes_index"))
+
+@app.route("/classes/<class_id>/edit/", methods=["GET", "POST"])
+@login_required
+def classes_edit_class(class_id):
+
+    c = Class.query.get(class_id)
+
+    if c.account_id != current_user.id:
+        return redirect(url_for("auth_unauthorized"))
+
+    form = ClassForm(request.form)
+
+    if request.method == "GET":
+        form.name.default = c.name
+        form.process()
+        return render_template("classes/edit.html", form=form, c=c)
+
+    if not form.validate():
+        return render_template("classes/edit.html", form=form, c=c)
+
+    c.name = form.name.data
+    db.session().commit()
+
+    return redirect(url_for("classes_details", class_id=class_id))

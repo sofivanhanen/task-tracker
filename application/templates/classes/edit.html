@@ -1,0 +1,16 @@
+{% extends "layout.html" %} {% block body %}
+<h1>
+  Editing class "{{c.name}}"
+</h1>
+<form method="POST" action="{{ url_for('classes_edit_class', class_id = c.id) }}">
+  <div class="form-group">
+    <label for="{{ form.name.id }}" class="control-label">{{ form.name.label }}</label>
+    <div>
+      {{ form.name(class_='form-control') }}
+    </div>
+    {% if form.name.errors %} {% for e in form.name.errors %}
+    <small class="form-text text-muted">{{ e }}</small> {% endfor %} {% endif %}
+  </div>
+  <button type="submit" class="btn btn-primary">Edit</button>
+</form>
+<a href="{{url_for('classes_details', class_id = c.id)}}">Cancel</a> {% endblock %}

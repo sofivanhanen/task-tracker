@@ -3,6 +3,8 @@
   {{c.name}}
 </h1>
 
+<a href="{{url_for('classes_edit_class', class_id=c.id)}}">Edit class</a>
+<br>
 <a href="{{url_for('classes_confirm_delete', class_id=c.id)}}">Delete class</a>
 <br>
 <br>
