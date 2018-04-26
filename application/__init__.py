@@ -12,6 +12,12 @@ else:
 
 db = SQLAlchemy(app)
 
+# Many-to-many relationship table between tasks and classes
+classtask = db.Table('classtask',
+                     db.Column('class_id', db.Integer, db.ForeignKey(
+                         'class.id'), primary_key=True),
+                     db.Column('task_id', db.Integer, db.ForeignKey('task.id', primary_key=True)))
+
 from os import urandom
 app.config["SECRET_KEY"] = urandom(32)
 
@@ -39,9 +45,11 @@ from application.stats import views
 
 from application.classes import models
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
+
 
 try:
     db.create_all()
