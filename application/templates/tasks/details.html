@@ -58,6 +58,18 @@
 <br>
 
 <h4>
+  Classes
+</h4>
+
+<table class="table">
+  {% for c in task.classes %}
+  <tr>
+    <td><a href="{{url_for('classes_details', class_id = c.id)}}">{{c.name}}</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+<h4>
   Work sessions
 </h4>
 
