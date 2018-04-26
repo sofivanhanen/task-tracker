@@ -4,6 +4,7 @@ from flask_login import login_required
 from application.classes.models import Class
 from application.classes.forms import ClassForm
 
+
 @app.route("/classes/")
 @login_required
 def classes_index():
@@ -11,6 +12,7 @@ def classes_index():
     classes = Class.query.filter_by(account_id=current_user.id).all()
 
     return render_template("classes/list.html", classes=classes)
+
 
 @app.route("/classes/new/", methods=["GET", "POST"])
 @login_required
@@ -31,3 +33,14 @@ def classes_new():
     db.session().commit()
 
     return redirect(url_for("index"))
+
+
+@app.route("/classes/<class_id>/")
+@login_required
+def classes_details(class_id):
+
+    c = Class.query.get(class_id)
+    if c.account_id != current_user.id:
+        return redirect(url_for("auth_unauthorized"))
+
+    return render_template("classes/details.html", c=c)

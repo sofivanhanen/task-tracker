@@ -17,7 +17,7 @@
   {% for class in classes %}
   <tr>
     <td>
-      {{ class.name }}
+      <a href="{{url_for('classes_details', class_id = class.id)}}">{{ class.name }}</a>
     </td>
     <td>
       {{ class.count }}
