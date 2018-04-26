@@ -44,3 +44,31 @@ def classes_details(class_id):
         return redirect(url_for("auth_unauthorized"))
 
     return render_template("classes/details.html", c=c)
+
+
+@app.route("/classes/<class_id>/delete/confirm/")
+@login_required
+def classes_confirm_delete(class_id):
+
+    c = Class.query.get(class_id)
+    if c.account_id != current_user.id:
+        return redirect(url_for("auth_unauthorized"))
+
+    return render_template("classes/delete.html", c=c)
+
+
+@app.route("/classes/<class_id>/delete/")
+@login_required
+def classes_delete_class(class_id):
+
+    c = Class.query.get(class_id)
+    if c.account_id != current_user.id:
+        return redirect(url_for("auth_unauthorized"))
+
+    # Deleting relationships to tasks
+    c.tasks = []
+    # Deleting the class object
+    db.session().delete(c)
+    db.session().commit()
+
+    return redirect(url_for("classes_index"))

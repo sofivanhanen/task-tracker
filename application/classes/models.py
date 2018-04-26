@@ -18,7 +18,10 @@ class Class(Base):
 
     def __init__(self, name):
         self.name = name
-        self.count = get_total_tasks_for_class(self.id)
+        try:
+            self.count = get_total_tasks_for_class(self.id)
+        except NameError:
+            self.count = 0
 
     @staticmethod
     def get_total_tasks_for_class(class_id):
