@@ -1,30 +1,26 @@
-{% extends "layout.html" %}
-
-{% block body %}
+{% extends "layout.html" %} {% block body %}
 <h1>
   Your tasks
 </h1>
-  <table>
+<table class="table">
+  <thead class="thead-light">
     <tr>
       <th>Task</th>
       <th>Done</th>
-      <th></th>
+      <th>Progress</th>
     </tr>
-    {% for task in tasks %}
-    <tr>
-      <td>
-        <a href="{{url_for('tasks_details', task_id = task.id)}}">{{task.name}}</a>
-      </td>
-      <td>{{ task.done }}</td>
-      <td>
-	<form method="POST" action="{{ url_for('tasks_set_done', task_id=task.id) }}">
-	  <input type="submit" value="Change status!"/>
-	</form>
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
-  <p>
-    Click on a task to see details and edit.<br>Tasks are ordered by completion and name.
-  </p>
+  </thead>
+  {% for task in tasks %}
+  <tr>
+    <td>
+      <a href="{{url_for('tasks_details', task_id = task.id)}}">{{task.name}}</a>
+    </td>
+    <td>{{ task.done }}</td>
+    <td>{{ task.progress }} / 1.0</td>
+  </tr>
+  {% endfor %}
+</table>
+<p>
+  Click on a task to see details and edit.<br>Tasks are ordered by completion and name.
+</p>
 {% endblock %}
