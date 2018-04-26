@@ -23,6 +23,7 @@ class Class(Base):
         except NameError:
             self.count = 0
 
+    # THIS DOES NOT WORK
     @staticmethod
     def get_total_tasks_for_class(class_id):
         stmt = text(
