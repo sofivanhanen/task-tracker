@@ -1,0 +1,28 @@
+{% extends "layout.html" %} {% block body %}
+<h1>
+  Your classes
+</h1>
+
+<a href="{{url_for('classes_new')}}">Add a new class</a>
+<br>
+<br>
+
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th>Class</th>
+      <th>Tasks</th>
+    </tr>
+  </thead>
+  {% for class in classes %}
+  <tr>
+    <td>
+      {{ class.name }}
+    </td>
+    <td>
+      {{ class.count }}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
