@@ -5,13 +5,16 @@ from application.classes.models import Class
 from application.classes.forms import ClassForm
 
 
-@app.route("/classes/")
+@app.route("/classes/", defaults={'page':1})
+@app.route("/classes/page/<int:page>/")
 @login_required
-def classes_index():
+def classes_index(page):
 
-    classes = Class.query.filter_by(account_id=current_user.id).all()
+    per_page = 5;
 
-    for c in classes:
+    classes = Class.query.filter_by(account_id=current_user.id).order_by(Class.name.asc()).paginate(page, per_page, error_out=False)
+
+    for c in classes.items:
         c.set_count()
 
     return render_template("classes/list.html", classes=classes)
