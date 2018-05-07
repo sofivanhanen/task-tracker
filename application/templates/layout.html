@@ -16,6 +16,7 @@
 	  </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
+        {% if current_user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('working_periods_new') }}">Add a work session</a>
         </li>
@@ -28,6 +29,7 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('stats_index') }} ">Stats</a>
         </li>
+        {% endif %}
       </ul>
       <div class="form-inline mt-2 mt-md-0">
         {% if current_user.is_authenticated %}
