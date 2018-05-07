@@ -1,6 +1,7 @@
 from application import db, classtask
 from application.models import Base
 from sqlalchemy.sql import text
+from sqlalchemy import orm
 
 
 class Class(Base):
@@ -10,10 +11,8 @@ class Class(Base):
     account_id = db.Column(db.Integer, db.ForeignKey(
         'account.id'), nullable=False)
 
-    # For some reason can't set this in init.
-    # So, whenever I need to use the number of tasks in html,
-    # call set_count first.
     count = -1
+    parsed_date = None
 
     # Getting the tasks relevant to this class from classtask table
     # backref creates a similar list of classes for tasks
@@ -22,6 +21,12 @@ class Class(Base):
 
     def __init__(self, name):
         self.name = name
+        self.parsed_date = self.date_created.strftime("%B %d, %Y")
+        self.count = len(self.tasks)
 
-    def set_count(self):
+    # When getting objects from database, __init__ isn't called, but the below reconstructor is
+    @orm.reconstructor
+    def init_on_load(self):
+        # Can't make a method for these, because this method can't find other methods
+        self.parsed_date = self.date_created.strftime("%B %d, %Y")
         self.count = len(self.tasks)

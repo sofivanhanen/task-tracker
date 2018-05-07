@@ -2,6 +2,7 @@ from application import db
 from application.models import Base
 from sqlalchemy.sql import text
 from datetime import *
+from sqlalchemy import orm
 
 
 class WorkingPeriod(Base):
@@ -18,31 +19,27 @@ class WorkingPeriod(Base):
         self.time = time
         self.length = length
         self.quality = quality
+        self.details_string = "On "
+            # On some systems / sql versions, time is returned as string
+        if type(self.time) is not datetime:
+            self.details_string += str(self.time)
+        else:
+            self.details_string += self.time.strftime("%B %e, %Y, at %-H:%M")
+        self.details_string += ", worked for " + str(self.length) + " minutes."
+        if self.quality is not None:
+            self.details_string += (" Quality was " + str(self.quality) + ".")
 
-    # Method used in task's details view, to list working periods related to the task.
-    # We also create the details_string to easily show data on the working period
-    @staticmethod
-    def find_working_periods_with_string_for_task(task_id):
-        stmt = text("SELECT working_period.time, working_period.length, working_period.quality, working_period.id FROM working_period WHERE working_period.task_id = " + str(task_id))
-        res = db.engine.execute(stmt)
 
-        # TODO Reformat, we don't need to do both manual query AND automatic one
-        response = []
-        for row in res:
-
-            workstring = "On "
-            # On heroku time is returned as datetime. On local, using SQLite, it's returned as string...
-            if type(row[0]) is str:
-                workstring += row[0]
-            else:
-                workstring += row[0].strftime("%c")
-            workstring += ", worked for " + str(row[1]) + " minutes."
-            if row[2] is not None:
-                workstring += (" Quality was " + str(row[2]) + ".")
-
-            wp = WorkingPeriod.query.get(row[3])
-            wp.details_string = workstring
-
-            response.append(wp)
-
-        return response
+    # When getting objects from database, __init__ isn't called, but the below reconstructor is
+    @orm.reconstructor
+    def init_on_load(self):
+        # Can't make a method for below, as this method can't find other methods
+        self.details_string = "On "
+            # On some systems / sql versions, time is returned as string
+        if type(self.time) is not datetime:
+            self.details_string += str(self.time)
+        else:
+            self.details_string += self.time.strftime("%B %e, %Y, at %-H:%M")
+        self.details_string += ", worked for " + str(self.length) + " minutes."
+        if self.quality is not None:
+            self.details_string += (" Quality was " + str(self.quality) + ".")

@@ -5,18 +5,13 @@ from application.classes.models import Class
 from application.classes.forms import ClassForm
 
 
-@app.route("/classes/", defaults={'page':1})
+@app.route("/classes/", defaults={'page': 1})
 @app.route("/classes/page/<int:page>/")
 @login_required
 def classes_index(page):
-
-    per_page = 5;
-
-    classes = Class.query.filter_by(account_id=current_user.id).order_by(Class.name.asc()).paginate(page, per_page, error_out=False)
-
-    for c in classes.items:
-        c.set_count()
-
+    per_page = 5
+    classes = Class.query.filter_by(account_id=current_user.id).order_by(
+        Class.name.asc()).paginate(page, per_page, error_out=False)
     return render_template("classes/list.html", classes=classes)
 
 
@@ -48,9 +43,6 @@ def classes_details(class_id):
     c = Class.query.get(class_id)
     if c.account_id != current_user.id:
         return redirect(url_for("auth_unauthorized"))
-
-    c.set_count()
-
     return render_template("classes/details.html", c=c)
 
 
@@ -80,6 +72,7 @@ def classes_delete_class(class_id):
     db.session().commit()
 
     return redirect(url_for("classes_index"))
+
 
 @app.route("/classes/<class_id>/edit/", methods=["GET", "POST"])
 @login_required
