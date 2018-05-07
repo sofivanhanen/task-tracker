@@ -16,10 +16,10 @@
 <table class="table">
   <tr>
     <td>
-      Is done
+      Done
     </td>
     <td>
-      {{task.done}}
+      {% if task.done %} Yes {% else %} No {% endif %}
     </td>
   </tr>
   <tr>
@@ -27,7 +27,7 @@
       Progress
     </td>
     <td>
-      {{task.progress}} / 1.0
+      {% if task.progress == None %} 0.0 % {% else %} {{ task.progress * 100 }} % {% endif %}
     </td>
   </tr>
   <tr>
@@ -43,7 +43,7 @@
       Estimated time requirement
     </td>
     <td>
-      {{task.estimate}} minutes
+      {% if task.estimate == None %} Not set {% else %} {{task.estimate}} minutes {% endif %}
     </td>
   </tr>
   <tr>
@@ -51,7 +51,7 @@
       Total time spent
     </td>
     <td>
-      {{total_time}} minutes
+      {% if total_time == None %} 0 {% else %} {{total_time}} {% endif %} minutes
     </td>
   </tr>
 </table>
