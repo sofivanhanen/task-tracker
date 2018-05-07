@@ -10,9 +10,9 @@
 <table class="table">
   <thead class="thead-light">
     <tr>
-      <th>Task</th>
-      <th>Done</th>
-      <th>Progress</th>
+      <th style="width: 65%">Task</th>
+      <th style="width: 15%">Done</th>
+      <th style="width: 20%">Progress</th>
     </tr>
   </thead>
   {% for task in tasks.items %}
@@ -20,8 +20,12 @@
     <td>
       <a href="{{url_for('tasks_details', task_id = task.id)}}">{{task.name}}</a>
     </td>
-    <td>{{ task.done }}</td>
-    <td>{{ task.progress }} / 1.0</td>
+    <td>
+      {% if task.done %} Yes {% else %} No {% endif %}
+    </td>
+    <td>
+      {% if task.progress == None %} 0.0 % {% else %} {{ task.progress * 100 }} % {% endif %}
+    </td>
   </tr>
   {% endfor %}
 </table>
@@ -32,8 +36,7 @@
     <li class="page-item"><a class="page-link" href="{{ url_for('tasks_index', page=tasks.prev_num) }}">Previous page</a></li>
     {% else %}
     <li class="page-item-disabled"><a class="page-link">Previous page</a></li>
-    {% endif %}
-    {% if tasks.has_next %}
+    {% endif %} {% if tasks.has_next %}
     <li class="page-item"><a class="page-link" href="{{ url_for('tasks_index', page=tasks.next_num) }}">Next page</a></li>
     {% else %}
     <li class="page-item-disabled"><a class="page-link">Next page</a></li>
@@ -42,6 +45,6 @@
 </nav>
 
 <p>
-  Click on a task to see details and edit.<br>Showing <b>five</b> tasks per page.<br>Tasks are ordered by completion and name.
+  Click on a task to see details and edit.<br>Showing <b>five</b> tasks per page.<br>Tasks are ordered by progress and name.
 </p>
 {% endblock %}

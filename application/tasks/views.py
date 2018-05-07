@@ -11,12 +11,13 @@ import logging
 from wtforms import BooleanField
 
 
-@app.route("/tasks/", defaults={'page':1})
+@app.route("/tasks/", defaults={'page': 1})
 @app.route("/tasks/page/<int:page>/")
 @login_required
 def tasks_index(page):
-    per_page = 5;
-    tasks=Task.query.filter_by(account_id=current_user.id).order_by(Task.done.asc(), func.lower(Task.name)).paginate(page, per_page, error_out=False)
+    per_page = 5
+    tasks = Task.query.filter_by(account_id=current_user.id).order_by(
+        Task.progress.asc(), func.lower(Task.name)).paginate(page, per_page, error_out=False)
     return render_template("tasks/list.html", tasks=tasks)
 
 
