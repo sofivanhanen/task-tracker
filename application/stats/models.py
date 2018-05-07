@@ -1,6 +1,7 @@
 from application import db, current_user
 from application.tasks.models import Task
 from application.workingperiods.models import WorkingPeriod
+from application.classes.models import Class
 from datetime import *
 from sqlalchemy.sql import text
 
@@ -59,3 +60,20 @@ class Stats():
         return_string += ", a total of " + str(minutes[day]) + " minutes."
 
         return return_string
+
+    @staticmethod
+    def get_most_worked_class_string():
+
+        stmt = text("SELECT class.name AS name, SUM(working_period.length) AS minutes FROM class INNER JOIN classtask ON classtask.class_id = class.id INNER JOIN task ON task.id = classtask.task_id INNER JOIN account ON account.id = task.account_id INNER JOIN working_period ON working_period.task_id = task.id WHERE account.id = " +
+                    str(current_user.id) + " GROUP BY class.name ORDER BY minutes DESC LIMIT 1")
+        res = db.engine.execute(stmt)
+
+        for row in res:
+            # res contains only one row
+            if row[1] == 0:
+                break
+            return "Your most used class is " + str(row[0]) + " with a total of " + str(row[1]) + " minutes worked."
+
+        # if res was empty / no classes
+
+        return "Add classes to see your most used class!"

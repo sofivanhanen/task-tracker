@@ -9,4 +9,4 @@ from application.stats.models import Stats
 @app.route("/stats/")
 @login_required
 def stats_index():
-    return render_template("stats/index.html", day_of_week_string=Stats.get_most_worked_day_of_week_string(), total_worked_minutes_string=Stats.get_total_worked_minutes_string())
+    return render_template("stats/index.html", day_of_week_string=Stats.get_most_worked_day_of_week_string(), total_worked_minutes_string=Stats.get_total_worked_minutes_string(), most_worked_class_string=Stats.get_most_worked_class_string())
