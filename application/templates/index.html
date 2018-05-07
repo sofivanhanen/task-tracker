@@ -1,7 +1,9 @@
-{% extends "layout.html" %}
-
-{% block body %}
+{% extends "layout.html" %} {% block body %}
 <h1>
-  Welcome to task tracker!
+  Welcome to Task Tracker!
 </h1>
+
+<p>
+  {% if current_user.is_authenticated %} We hope you're enjoying Task Tracker! {% else %} Register or log in to use Task Tracker! {% endif %}
+</p>
 {% endblock %}

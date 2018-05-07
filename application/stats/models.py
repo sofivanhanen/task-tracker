@@ -17,6 +17,8 @@ class Stats():
 
         for row in res:
             # res contains only one row
+            if str(row[0]) == None or row[0] == 0 or row[0] == None:
+                return "You haven't logged any work sessions yet."
             return "You have worked a total of " + str(row[0]) + " minutes."
 
     @staticmethod
@@ -58,6 +60,9 @@ class Stats():
             return_string += "Sundays"
 
         return_string += ", a total of " + str(minutes[day]) + " minutes."
+
+        if str(minutes[day]) == None or minutes[day] == 0:
+            return "Add work sessions to see your favourite work day!"
 
         return return_string
 

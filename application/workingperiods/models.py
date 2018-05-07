@@ -19,23 +19,12 @@ class WorkingPeriod(Base):
         self.time = time
         self.length = length
         self.quality = quality
-        self.details_string = "On "
-            # On some systems / sql versions, time is returned as string
-        if type(self.time) is not datetime:
-            self.details_string += str(self.time)
-        else:
-            self.details_string += self.time.strftime("%B %e, %Y, at %-H:%M")
-        self.details_string += ", worked for " + str(self.length) + " minutes."
-        if self.quality is not None:
-            self.details_string += (" Quality was " + str(self.quality) + ".")
-
 
     # When getting objects from database, __init__ isn't called, but the below reconstructor is
     @orm.reconstructor
     def init_on_load(self):
-        # Can't make a method for below, as this method can't find other methods
         self.details_string = "On "
-            # On some systems / sql versions, time is returned as string
+        # On some systems / sql versions, time is returned as string
         if type(self.time) is not datetime:
             self.details_string += str(self.time)
         else:

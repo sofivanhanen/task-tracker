@@ -10,8 +10,8 @@
 <table class="table">
   <thead class="thead-light">
     <tr>
-      <th>Class</th>
-      <th>Tasks</th>
+      <th style="width: 80%">Class</th>
+      <th style="width: 20%s">Tasks</th>
     </tr>
   </thead>
   {% for class in classes.items %}
@@ -32,8 +32,7 @@
     <li class="page-item"><a class="page-link" href="{{ url_for('classes_index', page=classes.prev_num) }}">Previous page</a></li>
     {% else %}
     <li class="page-item-disabled"><a class="page-link">Previous page</a></li>
-    {% endif %}
-    {% if classes.has_next %}
+    {% endif %} {% if classes.has_next %}
     <li class="page-item"><a class="page-link" href="{{ url_for('classes_index', page=classes.next_num) }}">Next page</a></li>
     {% else %}
     <li class="page-item-disabled"><a class="page-link">Next page</a></li>

@@ -14,17 +14,15 @@ class Task(Base):
     account_id = db.Column(db.Integer, db.ForeignKey(
         'account.id'), nullable=False)
 
-    parsed_date = None;
+    parsed_date = None
 
     def __init__(self, name):
         self.name = name
         self.done = False
-        self.parsed_date = self.date_created.strftime("%B %d, %Y")
 
     # When getting objects from database, __init__ isn't called, but the below reconstructor is
     @orm.reconstructor
     def init_on_load(self):
-        # Can't make a method for this, because this method can't find other methods
         self.parsed_date = self.date_created.strftime("%B %d, %Y")
 
     @staticmethod
