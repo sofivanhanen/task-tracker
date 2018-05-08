@@ -21,6 +21,9 @@ You have access only to data relevant to your account.
 Add and edit tasks by selecting Tasks from the top bar, same for classes via the link Classes.
 Delete tasks and classes by selecting the item from the list.
 Add work sessions by clicking Add a work session in the top bar.
+
+Note that in order to be able to add a work session, you must have at least one unfinished task, since work sessions have to belong to a task.
+
 Delete work sessions by selecting the relevant task, and clicking Delete next to the relevant work session.
 Click on Stats to see stats based on your work, but you'll have to have added tasks and work sessions to see any stats.
 Remember to logout after you're done.
@@ -35,6 +38,8 @@ Usability could be improved by adding a date picker.
 Currently there is no way to modify selected classes for a task.
 There's always room for more stats.
 It would also be interesting to see stats on other users.
+
+Currently it is possible to create multiple accounts with the same credentials.
 
 ## Documentation
 
